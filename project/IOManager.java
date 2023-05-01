@@ -30,6 +30,7 @@ public class IOManager {
         map = new int[m][n];
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".txt"))) {
+            //n, m 입력
             line = br.readLine();
             n = line.length();  //n: 가로 길이
             while (line!= null) {     //m: 세로 길이
@@ -43,6 +44,7 @@ public class IOManager {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".txt"))) {
+            //map 입력
             for (int i = 0; i < m; i++) {
                 line = br.readLine();
                 for (int j = 0; j < n; j++) {
@@ -53,10 +55,7 @@ public class IOManager {
             System.out.println("Error: " + e.getMessage());
             throw new RuntimeException(e);
         }
-
-
-        System.out.println("m = " + m + ", n = " + n);
-
+        //System.out.println("m = " + m + ", n = " + n);
         //for (int i = 0; i < m; i++) { //map 출력
           //  for (int j = 0; j < n; j++) {
             //    System.out.print(map[i][j] + " ");
