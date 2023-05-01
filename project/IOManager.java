@@ -24,34 +24,36 @@ public class IOManager {
     public int getHeight(){
         return m;
     }
-    public int[][] readFile(String fileName){ //텍스트 파일 미로 읽기
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\" + fileName +".txt"));
-            String line = br.readLine();
 
-            n = line.length();  //가로 길이
-            while (line!= null) {     //세로 길이
+    public int[][] readFile(String fileName) { //텍스트 파일 미로 읽기
+        String line;
+        map = new int[m][n];
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".txt"))) {
+            line = br.readLine();
+            n = line.length();  //n: 가로 길이
+            while (line!= null) {     //m: 세로 길이
                 m++;
                 line = br.readLine();
-            }
-            br.close();
-
-            map = new int[m][n];
-            br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\" + fileName +".txt"));
-
-            int k = 0;
-            while ((line = br.readLine()) != null) {  //map 저장
-                for (int j = 0; j < n; j++) {
-                    map[k][j] = Character.getNumericValue(line.charAt(j));
-                }
-                k++;
-            }
-            br.close();
+            }           
 
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
             throw new RuntimeException(e);
         }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".txt"))) {
+            for (int i = 0; i < m; i++) {
+                line = br.readLine();
+                for (int j = 0; j < n; j++) {
+                    map[i][j] = Character.getNumericValue(line.charAt(j));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+
 
         System.out.println("m = " + m + ", n = " + n);
 
